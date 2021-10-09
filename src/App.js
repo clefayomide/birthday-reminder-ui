@@ -1,24 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Cards from "./components/Cards";
+import ClearBtn from "./components/ClearBtn";
 
 function App() {
+  const [birthdays, setBirthday] = useState([
+    {
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0GEmM5x6ig9XacZvM-r4mxg-eyWu9jp959Q&usqp=CAU",
+      name: "Alice morgan",
+      age: "29 years old",
+    },
+
+    {
+      image:
+        "data:image/jpeg;base64,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",
+      name: "John Doe",
+      age: "22 years old",
+    },
+
+    {
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlZhP1LaYa9pvhNdtuU43hmbLGkOgZTq0Uvg&usqp=CAU",
+      name: "Beatrice Bush",
+      age: "19 years old",
+    },
+
+    {
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjJVTCndkCvVXQXgXM7rUyg4UvsRR5xkUzxg&usqp=CAU",
+      name: "Alex Hakimi",
+      age: "30 years old",
+    },
+  ]);
+  const total = birthdays.length;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="main">
+      <p className="total">{total} birthdays today</p>
+      {birthdays.map((birthday) => (
+        <Cards birthday={birthday} />
+      ))}
+      <ClearBtn onClick={() => setBirthday([])}/>
+    </main>
   );
 }
 
